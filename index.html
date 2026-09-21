@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Opentia OS — From Zero, Everything</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='28' fill='%23364ED1'/%3E%3Ccircle cx='32' cy='32' r='8' fill='%23BFDBFE'/%3E%3C/svg%3E">
+<style>
+  :root{
+    --bg:#f2f7ff;
+    --bg2:#ffffff;
+    --card:#ffffff;
+    --line:#d7e5f8;
+    --text:#16233c;
+    --muted:#5a6b87;
+    --blue:#364ED1;
+    --blue2:#5b74e8;
+    --soft:#93C5FD;
+    --soft2:#BFDBFE;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans",sans-serif;
+    background:var(--bg);color:var(--text);line-height:1.65;
+  }
+  .wrap{max-width:1050px;margin:0 auto;padding:0 24px;}
+
+  /* NAV */
+  nav{display:flex;align-items:center;justify-content:space-between;padding:20px 0;}
+  .logo{display:flex;align-items:center;gap:12px;font-weight:700;letter-spacing:.5px;}
+  .logo svg{width:36px;height:36px;flex-shrink:0;}
+  .logo small{color:var(--muted);font-weight:400;}
+  .nav-links{display:flex;gap:26px;font-size:15px;}
+  .nav-links a{color:var(--muted);text-decoration:none;transition:color .2s;}
+  .nav-links a:hover{color:var(--blue);}
+
+  /* HERO */
+  .hero{
+    text-align:center;padding:64px 0 80px;
+    background:radial-gradient(ellipse 60% 45% at 50% 0%,rgba(54,78,209,.10),transparent 70%),
+               radial-gradient(ellipse 40% 35% at 80% 20%,rgba(147,197,253,.28),transparent 70%);
+  }
+  .hero .codename{
+    display:inline-block;border:1px solid var(--line);border-radius:999px;
+    padding:6px 18px;font-size:13.5px;color:var(--blue);letter-spacing:2.5px;
+    text-transform:uppercase;margin-bottom:26px;background:var(--bg2);
+  }
+  .hero h1{
+    font-size:clamp(44px,8vw,84px);font-weight:800;letter-spacing:-2px;line-height:1.05;
+  }
+  .hero h1 .accent{color:var(--blue);}
+  .hero .logo-big{width:clamp(180px,32vw,270px);height:auto;margin:30px auto 6px;display:block;
+    filter:drop-shadow(0 18px 44px rgba(54,78,209,.22));
+    animation:spin 30s linear infinite;
+  }
+  @keyframes spin{
+    from{transform:rotate(0deg);}
+    to{transform:rotate(360deg);}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .hero .logo-big{animation:none;}
+  }
+  .hero p.tagline{
+    font-size:clamp(17px,2.4vw,22px);color:var(--muted);max-width:640px;margin:14px auto 0;
+  }
+  .cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:34px;}
+  .btn{
+    padding:13px 30px;border-radius:10px;font-size:16px;font-weight:600;text-decoration:none;
+    transition:transform .15s,box-shadow .15s;display:inline-block;
+  }
+  .btn-primary{background:linear-gradient(180deg,var(--blue2),var(--blue));color:#fff;
+    box-shadow:0 8px 28px rgba(54,78,209,.32);}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 34px rgba(54,78,209,.42);}
+  .btn-ghost{border:1px solid var(--line);color:var(--text);background:var(--bg2);}
+  .btn-ghost:hover{border-color:var(--blue);color:var(--blue);}
+
+  /* SECTIONS */
+  section{padding:72px 0;border-top:1px solid var(--line);}
+  .sec-head{text-align:center;margin-bottom:46px;}
+  .sec-head h2{font-size:clamp(26px,4vw,38px);letter-spacing:-.5px;}
+  .sec-head p{color:var(--muted);max-width:620px;margin:10px auto 0;}
+
+  /* STORY */
+  .story{
+    background:var(--bg2);border:1px solid var(--line);border-radius:18px;
+    padding:40px 44px;position:relative;overflow:hidden;
+    box-shadow:0 6px 30px rgba(54,78,209,.06);
+  }
+  .story::before{
+    content:"०";position:absolute;right:26px;top:-30px;font-size:190px;
+    color:rgba(54,78,209,.05);font-family:Georgia,serif;line-height:1;
+  }
+  .story p{color:var(--muted);font-size:17px;margin-bottom:16px;max-width:760px;}
+  .story p strong{color:var(--text);}
+  .story .quote{
+    border-left:3px solid var(--blue);padding:8px 0 8px 20px;margin:26px 0;
+    color:var(--blue);font-style:italic;font-size:18px;
+  }
+
+  /* FEATURE GRID */
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;}
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px;
+    transition:transform .18s,box-shadow .18s,border-color .18s;
+  }
+  .card:hover{transform:translateY(-4px);border-color:var(--soft);box-shadow:0 14px 34px rgba(54,78,209,.12);}
+  .card .icon{font-size:30px;margin-bottom:14px;}
+  .card h3{font-size:17.5px;margin-bottom:8px;}
+  .card p{color:var(--muted);font-size:14.5px;}
+
+  /* ROADMAP */
+  .timeline{max-width:720px;margin:0 auto;}
+  .t-item{display:flex;gap:22px;padding:18px 0;border-bottom:1px dashed var(--line);}
+  .t-item:last-child{border-bottom:none;}
+  .t-badge{
+    min-width:64px;height:28px;border-radius:999px;display:flex;align-items:center;justify-content:center;
+    font-size:13px;font-weight:700;letter-spacing:.5px;
+  }
+  .t-done{background:#e7f8ee;color:#1a9e52;border:1px solid #b5ebcf;}
+  .t-now{background:#e8edff;color:var(--blue);border:1px solid var(--soft);}
+  .t-next{background:#eef2f8;color:var(--muted);border:1px solid var(--line);}
+  .t-body h3{font-size:17px;}
+  .t-body p{color:var(--muted);font-size:14.5px;margin-top:4px;}
+
+  /* FOOTER */
+  footer{border-top:1px solid var(--line);padding:44px 0 54px;text-align:center;
+    background:linear-gradient(180deg,transparent,rgba(147,197,253,.14));}
+  footer .made{font-size:15px;color:var(--text);}
+  footer .sub{color:var(--muted);font-size:14px;margin-top:8px;}
+  footer .zero-mark{width:56px;height:56px;margin:0 auto 16px;display:block;}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <nav>
+    <div class="logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+        <defs>
+          <radialGradient id="softBlueInnerShadow-nav" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+            <stop offset="0%" stop-color="#BFDBFE"/>
+            <stop offset="75%" stop-color="#93C5FD"/>
+            <stop offset="100%" stop-color="#60A5FA"/>
+          </radialGradient>
+        </defs>
+        <g>
+          <circle cx="200" cy="200" r="56" fill="#364ED1"/>
+          <circle cx="200" cy="200" r="14" fill="url(#softBlueInnerShadow-nav)"/>
+          <circle cx="200" cy="144" r="14" fill="url(#softBlueInnerShadow-nav)"/>
+          <circle cx="240" cy="160" r="14" fill="url(#softBlueInnerShadow-nav)"/>
+          <circle cx="160" cy="160" r="14" fill="url(#softBlueInnerShadow-nav)"/>
+          <circle cx="256" cy="200" r="14" fill="url(#softBlueInnerShadow-nav)"/>
+          <circle cx="144" cy="200" r="14" fill="url(#softBlueInnerShadow-nav)"/>
+          <circle cx="240" cy="240" r="14" fill="url(#softBlueInnerShadow-nav)"/>
+          <circle cx="160" cy="240" r="14" fill="url(#softBlueInnerShadow-nav)"/>
+          <circle cx="200" cy="256" r="14" fill="url(#softBlueInnerShadow-nav)"/>
+        </g>
+      </svg>
+      <div>OPENTIA&nbsp;OS <small>&nbsp;· codename “Zero”</small></div>
+    </div>
+    <div class="nav-links">
+      <a href="#story">Story</a>
+      <a href="#features">Features</a>
+      <a href="#roadmap">Roadmap</a>
+    </div>
+  </nav>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="codename">Codename&nbsp;·&nbsp;ZERO</div>
+    <h1>Opentia <span class="accent">OS</span></h1>
+    <svg class="logo-big" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+      <defs>
+        <filter id="containedSoftShadow-hero" x="-10%" y="-10%" width="120%" height="120%">
+          <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#0a1B2C" flood-opacity="0.3"/>
+        </filter>
+        <radialGradient id="softBlueInnerShadow-hero" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+          <stop offset="0%" stop-color="#BFDBFE"/>
+          <stop offset="75%" stop-color="#93C5FD"/>
+          <stop offset="100%" stop-color="#60A5FA"/>
+        </radialGradient>
+      </defs>
+      <g>
+        <circle cx="200" cy="200" r="56" fill="#364ED1" stroke="#93C5FD" stroke-width="1.2"
+                stroke-opacity="0.4" filter="url(#containedSoftShadow-hero)"/>
+        <circle cx="200" cy="200" r="14" fill="url(#softBlueInnerShadow-hero)"/>
+        <circle cx="200" cy="144" r="14" fill="url(#softBlueInnerShadow-hero)"/>
+        <circle cx="240" cy="160" r="14" fill="url(#softBlueInnerShadow-hero)"/>
+        <circle cx="160" cy="160" r="14" fill="url(#softBlueInnerShadow-hero)"/>
+        <circle cx="256" cy="200" r="14" fill="url(#softBlueInnerShadow-hero)"/>
+        <circle cx="144" cy="200" r="14" fill="url(#softBlueInnerShadow-hero)"/>
+        <circle cx="240" cy="240" r="14" fill="url(#softBlueInnerShadow-hero)"/>
+        <circle cx="160" cy="240" r="14" fill="url(#softBlueInnerShadow-hero)"/>
+        <circle cx="200" cy="256" r="14" fill="url(#softBlueInnerShadow-hero)"/>
+      </g>
+    </svg>
+    <p class="tagline">
+      From Zero, everything. A free, Debian-based desktop operating system —
+      built in India, born from the same land that gave the world the number
+      that changed everything.
+    </p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="#download">Download v0.1</a>
+      <a class="btn btn-ghost" href="#story">The Story of Zero</a>
+    </div>
+  </div>
+</header>
+
+<section id="story">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>The Story of Zero</h2>
+      <p>Why Opentia’s first release is called “Zero”.</p>
+    </div>
+    <div class="story">
+      <p>
+        Over 1,500 years ago, ancient Indian mathematicians like
+        <strong>Aryabhata</strong> revolutionised arithmetic by treating zero —
+        <strong>shunya</strong> — as both a symbol and a numeral in its own right.
+        It was an idea so powerful that it re-wrote how humanity counts,
+        calculates, and thinks.
+      </p>
+      <p>
+        The modern <strong>decimal system</strong>, and the foundations of
+        <strong>algebra, trigonometry, and calculus</strong>, all trace heavily
+        back to ancient India. Every computer on Earth — every line of code,
+        every “1” and “0” — runs on that inheritance.
+      </p>
+      <div class="quote">
+        “Zero is not nothing. Zero is the beginning of everything you build on it.”
+      </div>
+      <p>
+        Opentia OS starts the same way: from zero — no name, no branding, just
+        a working system — and grows into something of its own. That is why
+        the very first release carries the codename <strong>Zero</strong>.
+        The nine dots in the Opentia logo circle around that idea: a zero,
+        made of many small parts, moving together.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section id="features">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>What’s Inside</h2>
+      <p>Everything you need to start. Nothing you didn’t ask for.</p>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <div class="icon">🖥️</div>
+        <h3>GNOME 48 Desktop</h3>
+        <p>A clean, modern, and distraction-free desktop environment — polished, accessible, and easy to love.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🧰</div>
+        <h3>Calamares Installer</h3>
+        <p>A friendly, step-by-step graphical installer. Boot the live session, click Install, and you’re done.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🧱</div>
+        <h3>Debian 13 “Trixie” Base</h3>
+        <p>Built on one of the most stable and respected foundations in the Linux world — rock-solid and battle-tested.</p>
+      </div>
+      <div class="card">
+        <div class="icon">⚡</div>
+        <h3>Try Without Installing</h3>
+        <p>A fully live system — boot from a USB stick, explore the whole desktop, and only install if you like it.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🌐</div>
+        <h3>Firefox ESR Browser</h3>
+        <p>The trusted, privacy-respecting browser — preinstalled and ready from the first boot.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🇮🇳</div>
+        <h3>Made in India</h3>
+        <p>Independently designed and built in India — from a place with limited resources, but unlimited ambition.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="download">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Download</h2>
+      <p>Zero is almost ready to meet the world.</p>
+    </div>
+    <div class="story" style="text-align:center;">
+      <p style="margin-bottom:8px;"><strong>Opentia OS Zero — v0.1 (raw build)</strong></p>
+      <p>
+        The first build is complete and being polished with full Opentia branding,
+        wallpaper, and installer identity.
+      </p>
+      <p style="color:var(--blue);">
+        Public downloads will appear here with the first branded release. Stay close. 🚀
+      </p>
+    </div>
+  </div>
+</section>
+
+<section id="roadmap">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Roadmap</h2>
+      <p>From Zero, one step at a time.</p>
+    </div>
+    <div class="timeline">
+      <div class="t-item">
+        <div class="t-badge t-done">DONE</div>
+        <div class="t-body">
+          <h3>v0.1 — Raw Build “Zero”</h3>
+          <p>First successful build: GNOME desktop, Calamares, Firefox ESR — built from scratch with live-build, zero errors.</p>
+        </div>
+      </div>
+      <div class="t-item">
+        <div class="t-badge t-now">NOW</div>
+        <div class="t-body">
+          <h3>v0.2 — Identity</h3>
+          <p>Opentia branding everywhere: hostname, boot menu, live user, wallpaper, and the Calamares installer.</p>
+        </div>
+      </div>
+      <div class="t-item">
+        <div class="t-badge t-next">NEXT</div>
+        <div class="t-body">
+          <h3>v0.3 — Curated Apps</h3>
+          <p>A hand-picked set of default applications for everyday Indian users.</p>
+        </div>
+      </div>
+      <div class="t-item">
+        <div class="t-badge t-next">GOAL</div>
+        <div class="t-body">
+          <h3>v1.0 — First Public Release</h3>
+          <p>Stable, documented, downloadable — Opentia OS meets the world.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <svg class="zero-mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+      <defs>
+        <radialGradient id="softBlueInnerShadow-ft" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+          <stop offset="0%" stop-color="#BFDBFE"/>
+          <stop offset="75%" stop-color="#93C5FD"/>
+          <stop offset="100%" stop-color="#60A5FA"/>
+        </radialGradient>
+      </defs>
+      <g>
+        <circle cx="200" cy="200" r="56" fill="#364ED1"/>
+        <circle cx="200" cy="200" r="14" fill="url(#softBlueInnerShadow-ft)"/>
+        <circle cx="200" cy="144" r="14" fill="url(#softBlueInnerShadow-ft)"/>
+        <circle cx="240" cy="160" r="14" fill="url(#softBlueInnerShadow-ft)"/>
+        <circle cx="160" cy="160" r="14" fill="url(#softBlueInnerShadow-ft)"/>
+        <circle cx="256" cy="200" r="14" fill="url(#softBlueInnerShadow-ft)"/>
+        <circle cx="144" cy="200" r="14" fill="url(#softBlueInnerShadow-ft)"/>
+        <circle cx="240" cy="240" r="14" fill="url(#softBlueInnerShadow-ft)"/>
+        <circle cx="160" cy="240" r="14" fill="url(#softBlueInnerShadow-ft)"/>
+        <circle cx="200" cy="256" r="14" fill="url(#softBlueInnerShadow-ft)"/>
+      </g>
+    </svg>
+    <p class="made">Opentia OS · Codename “Zero” · Built by Bhuvee Paswan</p>
+    <p class="sub">Created in India, with AI guidance from Sarvam AI — this website included.</p>
+  </div>
+</footer>
+
+</body>
+</html>
